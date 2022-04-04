@@ -1,0 +1,49 @@
+f = open("tuchuyennganh.txt","r",encoding = 'utf8')
+tumoi = f.readlines()
+f.close()
+
+for i in range(len(tumoi)):
+    tumoi[i] = tumoi[i].strip()
+print(tumoi)
+
+for i in range(len(tumoi)):
+    tumoi[i] = tumoi[i].lower()
+
+def tratu(a):
+    kq = ""
+    for i in range(1,len(tumoi),2):
+        if a in tumoi[i]:
+            kq += tumoi[i-1]
+    return kq
+                        
+def nhannut():
+    kq = tratu(sv_tucantra.get())
+    lb_tukq.config(text = kq)
+
+## Thiết kế giao diện
+from tkinter import *
+from tkinter import messagebox
+sc = Tk()
+sc.title("Hello")
+
+
+sv_tucantra = StringVar()
+
+lb_chinh = Label(sc,font = ("Arial",14), text = "Mời nhập từ cần tra")
+lb_chinh.grid(column = 1, columnspan = 2, row = 1)
+
+lb_tucantra = Label(sc,font = ("Arial",14), text = "Từ cần tra")
+lb_tucantra.grid(column = 1, row = 2)
+
+en_tucantra = Entry(sc,font = ("Arial",14), textvariable = sv_tucantra, width = 20)
+en_tucantra.grid(column = 1, row = 3)
+
+lb_kq = Label(sc,font = ("Arial",14), text = "Kết quả")
+lb_kq.grid(column = 2, row = 2, padx = (10,10))
+lb_tukq = Label(sc, font = ("Arial",14), width = 20, relief = GROOVE, bg = "white")
+lb_tukq.grid(column = 2, row = 3)
+
+bt = Button(sc,font = ("Arial",14),text = "Tìm kiếm", relief = RAISED,bg = "grey", command = nhannut)
+bt.grid(column = 1, row = 4)
+
+sc.mainloop()
